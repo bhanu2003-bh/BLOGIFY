@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include('./partials/head') %>
+    <title>Blogpage</title>
+</head>
+
+<body>
+  <%- include('./partials/nav') %>
+
+  <div class="container mt-4">
+    <h1><%=blog.title%></h1>
+      <img src="<%=blog.coverImageURL%>" width="700px">
+        <pre class="mt-3"> <%=blog.body%> </pre>
+  </div>
+
+  <div class="container mt-4">
+    <img src="<%=createdUser.profileImageUrl%>" alt="" width="50px" height="50px">
+    <%= createdUser.fullname%>
+  </div>
+
+  <div class="container">
+    <h1>Comments</h1>
+    <% allComments.forEach(comment => { %>
+      
+      <% if(JSON.stringify(comment.blogId)===JSON.stringify(blog._id)){ %>
+
+        
+        <p> <b><%=comment.userName%></b> <%=comment.content%> </p>
+
+     <%}%>
+    <% }) %>
+
+  </div>
+
+  <div class="container">
+    <form action="/blog/comment/<%=blog._id%>" method="post">
+
+      <div class="mb-3">
+        <input type="text" class="form-control" id="content" name="content" placeholder="Enter your comment" />
+      </div>
+    <button class="btn btn-sm btn-primary" type="submit">Add</button>
+    </form>
+
+  </div>
+
+
+  <%- include('./partials/script') %>
+</body>
+
+</html>
